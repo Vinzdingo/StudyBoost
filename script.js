@@ -1,33 +1,33 @@
-function addMessage(text, type) {
-  const chat = document.getElementById("chat");
-
-  const div = document.createElement("div");
-  div.classList.add("msg", type);
-  div.innerText = text;
-
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
-
 function sendMessage() {
   const input = document.getElementById("input");
-  const text = input.value.trim();
+  const chat = document.getElementById("chat");
 
+  const text = input.value.trim();
   if (text === "") return;
 
-  // user message
-  addMessage(text, "user");
+  // USER MESSAGE
+  const userMsg = document.createElement("div");
+  userMsg.className = "msg user";
+  userMsg.innerText = text;
+  chat.appendChild(userMsg);
 
-  // bot reply
+  // BOT RESPONSE
   setTimeout(() => {
-    addMessage(
-`💡 Hint 1: Tænk simpelt
-💡 Hint 2: Del problemet op
-💡 Hint 3: Prøv selv først
-🧾 Forklaring: ${text}`,
-      "bot"
-    );
-  }, 500);
+    const botMsg = document.createElement("div");
+    botMsg.className = "msg bot";
+
+    botMsg.innerText =
+      "💡 Hint:\n" +
+      "1. Start simpelt\n" +
+      "2. Del problemet op\n" +
+      "3. Prøv selv først\n\n" +
+      "🧾 Dit input: " + text;
+
+    chat.appendChild(botMsg);
+
+    chat.scrollTop = chat.scrollHeight;
+  }, 300);
 
   input.value = "";
+  chat.scrollTop = chat.scrollHeight;
 }
