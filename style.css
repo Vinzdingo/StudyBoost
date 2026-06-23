@@ -1,1 +1,33 @@
+function addMessage(text, type) {
+  const chat = document.getElementById("chat");
 
+  const msg = document.createElement("div");
+  msg.classList.add("msg", type);
+  msg.innerText = text;
+
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendMessage() {
+  const input = document.getElementById("input");
+  const text = input.value;
+
+  if (!text) return;
+
+  // user message
+  addMessage(text, "user");
+
+  // bot reply (StudyBoost logic)
+  const reply =
+`💡 Hint 1: Tænk helt simpelt over spørgsmålet
+💡 Hint 2: Del det op i mindre dele
+💡 Hint 3: Prøv selv først
+🧾 Forklaring: Dette handler om "${text}"`;
+
+  setTimeout(() => {
+    addMessage(reply, "bot");
+  }, 500);
+
+  input.value = "";
+}
